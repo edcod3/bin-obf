@@ -103,7 +103,7 @@ def usage():
     print("\nParameters:")
     print("\texe_path: Path of executable to be padded. Must be a Windows Executable.")
     print(f"\txor_key: XOR key to obfuscate executable with. Must be prefixed with '0x'. Default: 0x69")
-    print("\tcreate_new_file: Don't pad in-place but create a new file. Filename will be appended with '_padded'. Can be 'true' / 'false' or 'y' / 'n'. Default: 'n'")
+    print("\tcreate_new_file: Don't pad in-place but create a new file. Filename will be appended with '_xorenc'. Can be 'true' / 'false' or 'y' / 'n'. Default: 'n'")
     sys.exit(1)
 
 def sanity_checks(path):
